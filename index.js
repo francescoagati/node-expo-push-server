@@ -13,12 +13,12 @@ app.get('/', function(request, response) {
         endpoints: [
           {
             url: '/welcome/:token',
-            method: 'GET',
+            method: 'POST',
             description: 'Send push notification with welcome message to :token device'
           },
           {
             url: '/photo/:token',
-            method: 'GET',
+            method: 'POST',
             description: 'Send push notification advising :token device photo is uploaded'
           }
         ]
