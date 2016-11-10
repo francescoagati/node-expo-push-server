@@ -1,0 +1,18 @@
+{
+  "name": "node-push-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "killall -9 node && nodemon -x"
+  },
+  "dependencies": {
+    "exponent-server-sdk": "^1.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
