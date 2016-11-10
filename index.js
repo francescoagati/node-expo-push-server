@@ -14,12 +14,12 @@ app.get('/', function(request, response) {
           {
             url: '/welcome/:token',
             method: 'GET',
-            description: 'send push notification with welcome message to :token device'
+            description: 'Send push notification with welcome message to :token device'
           },
           {
             url: '/photo/:token',
             method: 'GET',
-            description: 'send push notification advising :token device photo is uploaded'
+            description: 'Send push notification advising :token device photo is uploaded'
           }
         ]
       })
@@ -30,7 +30,7 @@ app.get('/', function(request, response) {
 app.get('/welcome/:token', function(request, response) {
   var token = request.params.token;
   var message = 'Welcome to Rmotrgram!';
-  var description = 'push notification with welcome message to ' + token + ' device sent';
+  var description = 'Push notification with welcome message to ' + token + ' device sent';
 
   sendPush(token, message, description, response);
 });
@@ -38,7 +38,7 @@ app.get('/welcome/:token', function(request, response) {
 app.get('/photo/:token', function(request, response) {
   var token = request.params.token;
   var message = 'Your photo has been successfully uploaded!';
-  var description = 'push notification advising' + token + ' device photo is uploaded sent';
+  var description = 'Push notification advising' + token + ' device photo is uploaded sent';
 
   sendPush(token, message, description, response);
 });
