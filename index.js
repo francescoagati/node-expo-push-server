@@ -27,7 +27,7 @@ app.get('/', function(request, response) {
   });
 });
 
-app.get('/welcome/:token', function(request, response) {
+app.post('/welcome/:token', function(request, response) {
   var token = request.params.token;
   var message = 'Welcome to Rmotrgram!';
   var description = 'Push notification with welcome message to ' + token + ' device sent';
@@ -35,7 +35,7 @@ app.get('/welcome/:token', function(request, response) {
   sendPush(token, message, description, response);
 });
 
-app.get('/photo/:token', function(request, response) {
+app.post('/photo/:token', function(request, response) {
   var token = request.params.token;
   var message = 'Your photo has been successfully uploaded!';
   var description = 'Push notification advising' + token + ' device photo is uploaded sent';
