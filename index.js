@@ -2,6 +2,7 @@ var express = require('express');
 var exponentServerSDK = require('exponent-server-sdk');
 
 var app = express();
+var delayPushNotification = 5000;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -44,30 +45,32 @@ app.post('/photo/:token', function(request, response) {
 });
 
 var sendPush = function(token, message, description, response) {
-  exponentServerSDK.sendPushNotificationAsync({
-    // The push token for the app user you want to send the notification to
-    exponentPushToken: token,
-    message: message,
-    // data: {withSome: 'data'},
-  })
-  .then(function(res) {
-    response.json({
-        icon: '✅',
-        message: message,
-        description: description,
-        token: token,
-        status: 'sent',
-        res: res
+  setTimeout(function() {
+    exponentServerSDK.sendPushNotificationAsync({
+      // The push token for the app user you want to send the notification to
+      exponentPushToken: token,
+      message: message,
+      // data: {withSome: 'data'},
+    })
+    .then(function(res) {
+      response.json({
+            icon: '✅',
+            message: message,
+            description: description,
+            token: token,
+            status: 'sent',
+            res: res
+        });
+    }, function() {
+      response.json({
+          icon: '❌',
+          message: message,
+          description: description,
+          token: token,
+          status: 'error'
+      });
     });
-  }, function() {
-    response.json({
-        icon: '❌',
-        message: message,
-        description: description,
-        token: token,
-        status: 'error'
-    });
-  });
+  }, delayPushNotification);
 }
 
 app.listen(app.get('port'), function() {
