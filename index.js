@@ -2,7 +2,7 @@ var express = require('express');
 var exponentServerSDK = require('exponent-server-sdk');
 
 var app = express();
-var delayPushNotification = 5000;
+var delayPushNotification = 3000;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -50,7 +50,9 @@ var sendPush = function(token, message, description, response) {
       // The push token for the app user you want to send the notification to
       exponentPushToken: token,
       message: message,
-      data: {message: message},
+      data: {
+        response: message
+      },
     })
     .then(function(res) {
       response.json({
