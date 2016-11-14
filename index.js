@@ -50,7 +50,7 @@ var sendPush = function(token, message, description, response) {
       // The push token for the app user you want to send the notification to
       exponentPushToken: token,
       message: message,
-      data: {a: 'b'},
+      data: {message: message},
     })
     .then(function(res) {
       response.json({
