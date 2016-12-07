@@ -53,7 +53,7 @@ app.post('/photo/:token', function(request, response) {
 app.post('/sendyo/:token/:from', function(request, response) {
   var token = request.params.token;
   var from = request.params.from;
-  var message = 'YOmotr!';
+  var message = 'YOmotr! from ' + from;
   var description = from + ' send yo a YOmotr';
 
   sendPush(token, message, description, response);
