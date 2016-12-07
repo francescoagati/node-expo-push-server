@@ -22,6 +22,11 @@ app.get('/', function(request, response) {
             method: 'POST',
             description: 'Send push notification advising :token device photo is uploaded'
           }
+          {
+            url: '/sendyo/:token/:from',
+            method: 'POST',
+            description: 'Send push notification with a YO to :token device'
+          }
         ]
       })
     }
@@ -40,6 +45,15 @@ app.post('/photo/:token', function(request, response) {
   var token = request.params.token;
   var message = 'Your photo has been successfully uploaded!';
   var description = 'Push notification advising' + token + ' device photo is uploaded sent';
+
+  sendPush(token, message, description, response);
+});
+
+app.post('/sendyo/:token/:from', function(request, response) {
+  var token = request.params.token;
+  var from = request.params.from;
+  var message = 'YOmotr!';
+  var description = from + ' send yo a YOmotr';
 
   sendPush(token, message, description, response);
 });
