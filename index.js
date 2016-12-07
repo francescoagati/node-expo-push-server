@@ -21,7 +21,7 @@ app.get('/', function(request, response) {
             url: '/photo/:token',
             method: 'POST',
             description: 'Send push notification advising :token device photo is uploaded'
-          }
+          },
           {
             url: '/sendyo/:token/:from',
             method: 'POST',
