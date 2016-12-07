@@ -10,7 +10,8 @@ app.get('/', function(request, response) {
   response.format({
     html: function(){
       response.json({
-        title: '😄 Rmotrgram push notifications server',
+        title: '😄 Rmotr push notifications server',
+        url: 'https://rmotr.com/',
         endpoints: [
           {
             url: '/welcome/:token',
