@@ -11,7 +11,7 @@ app.set('port', (process.env.PORT || 5000));
 
 app.get('/', (request, response) => {
   response.format({
-    html: function(){
+    html: () => {
       response.json({
         title: '😄 Rmotr push notifications server',
         url: 'https://rmotr.com/',
@@ -37,42 +37,72 @@ app.get('/', (request, response) => {
   });
 });
 
-app.post('/welcome/:token', function(request, response) {
+app.post('/welcome/:token', (request, response) => {
   var token = request.params.token;
   var message = 'Welcome to Rmotrgram!';
   var description = 'Push notification with welcome message to ' + token + ' device sent';
 
-  sendPush(token, message, description, response);
+  let isPushToken = Expo.isExponentPushToken(token);
+
+  if (isPushToken) {
+    sendPush(token, message, description, response);
+  } else {
+    response.json({
+        icon: '❌',
+        message: 'Your token is invalid',
+        token: token,
+        status: 'error'
+    });
+  }
 });
 
-app.post('/photo/:token', function(request, response) {
+app.post('/photo/:token', (request, response) => {
   var token = request.params.token;
   var message = 'Your photo has been successfully uploaded!';
   var description = 'Push notification advising' + token + ' device photo is uploaded sent';
 
-  sendPush(token, message, description, response);
+  if (isPushToken) {
+    sendPush(token, message, description, response);
+  } else {
+    response.json({
+        icon: '❌',
+        message: 'Your token is invalid',
+        token: token,
+        status: 'error'
+    });
+  }
 });
 
-app.post('/sendyo/:token/:from', function(request, response) {
+app.post('/sendyo/:token/:from', (request, response) => {
   var token = request.params.token;
   var from = request.params.from;
   var message = 'YOmotr! from ' + from;
   var description = from + ' send yo a YOmotr';
 
-  sendPush(token, message, description, response);
+  if (isPushToken) {
+    sendPush(token, message, description, response);
+  } else {
+    response.json({
+        icon: '❌',
+        message: 'Your token is invalid',
+        token: token,
+        status: 'error'
+    });
+  }
 });
 
-var sendPush = function(token, message, description, response) {
-  setTimeout(function() {
-    exponentServerSDK.sendPushNotificationAsync({
+var sendPush = (token, message, description, response) => {
+  setTimeout(() => {
+    expo.sendPushNotificationAsync({
       // The push token for the app user you want to send the notification to
-      exponentPushToken: token,
-      message: message,
+      to: token,
+      sound: 'default',
+      body: message,
       data: {
         response: message
       },
     })
-    .then(function(res) {
+    .then((res) => {
       response.json({
             icon: '✅',
             message: message,
@@ -81,7 +111,7 @@ var sendPush = function(token, message, description, response) {
             status: 'sent',
             res: res
         });
-    }, function() {
+    }, err => {
       response.json({
           icon: '❌',
           message: message,
@@ -93,6 +123,6 @@ var sendPush = function(token, message, description, response) {
   }, delayPushNotification);
 }
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), () => {
   console.log('Node app is running on port', app.get('port'));
 });
