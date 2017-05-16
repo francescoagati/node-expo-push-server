@@ -1,12 +1,15 @@
 var express = require('express');
-var exponentServerSDK = require('exponent-server-sdk');
+var Expo = require('exponent-server-sdk');
+
+// Create a new Expo SDK client
+let expo = new Expo();
 
 var app = express();
 var delayPushNotification = 3000;
 
 app.set('port', (process.env.PORT || 5000));
 
-app.get('/', function(request, response) {
+app.get('/', (request, response) => {
   response.format({
     html: function(){
       response.json({
