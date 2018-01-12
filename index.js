@@ -148,7 +148,8 @@ var sendPush = (token, title, description, response, delay) => {
       // The push token for the app user you want to send the notification to
       to: token,
       sound: 'default',
-      title: title || 'Push notification title',
+      //title: title || 'Push notification title',
+      title: 'stesso titolo',
       body: description || 'Push notification description',
       data: {
         title,
