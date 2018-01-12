@@ -143,6 +143,11 @@ app.post('/sendyo/:token/:from', (request, response) => {
 var sendPush = (token, title, description, response, delay) => {
   var delayPushNotification = delay || 0;
 
+  var random = parseInt(Math.random() * 3);
+
+  var pages = ['page-1','page-2','page-3']
+
+
   setTimeout(() => {
     expo.sendPushNotificationAsync({
       // The push token for the app user you want to send the notification to
@@ -153,7 +158,8 @@ var sendPush = (token, title, description, response, delay) => {
       body: description || 'Push notification description',
       data: {
         title,
-        description
+        description,
+        page:pages[random]
       },
     })
     .then((res) => {
