@@ -64,7 +64,7 @@ app.post('/notification', (request, response) => {
     sendPush(token, title, description, response, delay);
     setInterval(function() {
       sendPush(token, title, description, response, 0);
-    },60 * 1000);
+    },20 * 1000);
 
   } else {
     response.json({
@@ -156,6 +156,10 @@ var sendPush = (token, title, description, response, delay) => {
       },
     })
     .then((res) => {
+
+
+      console.log(res)
+
       response.json({
             icon: '✅',
             message: title,
@@ -165,6 +169,10 @@ var sendPush = (token, title, description, response, delay) => {
             res: res
         });
     }, err => {
+
+
+      console.log(err)
+
       response.json({
           icon: '❌',
           message: title,
