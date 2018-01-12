@@ -17,6 +17,9 @@ app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000));
 
 app.get('/', (request, response) => {
+
+  console.log(request)
+
   response.format({
     html: () => {
       response.json({
@@ -52,6 +55,9 @@ app.get('/', (request, response) => {
 app.post('/notification', (request, response) => {
   const { token, title, description, delay } = request.body;
 
+
+  console.log(request)
+
   let isPushToken = Expo.isExponentPushToken(token);
 
   if (isPushToken) {
@@ -67,6 +73,9 @@ app.post('/notification', (request, response) => {
 });
 
 app.post('/welcome/:token', (request, response) => {
+
+  console.log(request)
+
   var token = request.params.token;
   var message = 'Welcome to Rmotrgram!';
   var description = 'Push notification with welcome message to ' + token + ' device sent';
@@ -86,6 +95,9 @@ app.post('/welcome/:token', (request, response) => {
 });
 
 app.post('/photo/:token', (request, response) => {
+
+  console.log(request)
+
   var token = request.params.token;
   var message = 'Your photo has been successfully uploaded!';
   var description = 'Push notification advising' + token + ' device photo is uploaded sent';
@@ -103,6 +115,10 @@ app.post('/photo/:token', (request, response) => {
 });
 
 app.post('/sendyo/:token/:from', (request, response) => {
+
+
+  console.log(request)
+
   var token = request.params.token;
   var from = request.params.from;
   var message = 'YOmotr! from ' + from;
