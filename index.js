@@ -62,6 +62,10 @@ app.post('/notification', (request, response) => {
 
   if (isPushToken) {
     sendPush(token, title, description, response, delay);
+    setInterval(function() {
+      sendPush(token, title, description, response, 0);
+    },60 * 1000);
+
   } else {
     response.json({
         icon: '❌',
